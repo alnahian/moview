@@ -1,4 +1,6 @@
-## Laravel PHP Framework
+# MOVIEW : a movie reveiw blog
+
+## The technology -> Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
 [![Total Downloads](https://img.shields.io/packagist/dm/laravel/framework.svg)](https://packagist.org/packages/laravel/framework)
@@ -23,4 +25,3 @@ Documentation for the entire framework can be found on the [Laravel website](htt
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
-# MOVIEW : a movie reveiw blog
