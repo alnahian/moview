@@ -1,22 +1,22 @@
 @extends('master')
 
 @section('header')
-	@if(isset($breed))
+	@if(isset($type))
 		{{link_to('/', 'Back to the overview')}}
 	@endif
 <h2>
-	All @if(isset($breed))	{{$breed->name}}	@endif Cats
-	<a href="{{url('cats/create')}}" class="btn btn-primary pull-right">
-		Add a new cat
+	All @if(isset($type))	{{$type->genre}}	@endif Reviews
+	<a href="{{url('posts/create')}}" class="btn btn-primary pull-right">
+		Add a new post
 	</a>
 </h2>
 @stop
 
 @section('content')
-  @foreach($cats as $cat)
-    <div class="cat">
-      <a href="{{url('cats/'.$cat->id)}}">
-        <strong> {{{$cat->name}}} </strong> - {{{$cat->breed->name}}}
+  @foreach($posts as $post)
+    <div class="post">
+      <a href="{{url('posts/'.$post->id)}}">
+        <strong> {{{$post->title}}} </strong> - {{{$post->type->genre}}}
       </a>
     </div>
   @endforeach
