@@ -82,4 +82,11 @@ View::composer('posts.edit', function($view)	{
 	$view->with('type_options', $type_options);
 });
 
+
+Route::get('types', function()	{
+	$types = Type::all();
+	return View::make('types.index')
+		->with('types', $types);
+});
+
 #### moview application ####
