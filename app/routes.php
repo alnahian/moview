@@ -60,7 +60,7 @@ Route::delete('posts/{post}', function(Post $post)	{
 
 
 Route::get('posts/types/{genre}', function($genre)	{
-	$type = Type::whereName($genre)->with('posts')->first();
+	$type = Type::whereGenre($genre)->with('posts')->first();
 	return View::make('posts.index')
 		->with('type', $type)
 		->with('posts', $type->posts);
