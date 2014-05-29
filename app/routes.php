@@ -58,7 +58,7 @@ Route::delete('posts/{post}', function(Post $post)	{
 		->with('message', 'Successfully deleted review!');
 });
 
-
+//////////////&&&&&&&&&&&&&&&&&&&&///////////
 Route::get('posts/types/{genre}', function($genre)	{
 	$type = Type::whereGenre($genre)->with('posts')->first();
 	return View::make('posts.index')
@@ -88,5 +88,12 @@ Route::get('types', function()	{
 	return View::make('types.index')
 		->with('types', $types);
 });
+
+
+Route::get('types/{type}', function(Type $type)	{
+	return View::make('types.single')
+		->with('type', $type);
+});
+
 
 #### moview application ####
