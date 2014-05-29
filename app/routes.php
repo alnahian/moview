@@ -1,24 +1,85 @@
 <?php
+#### moview application ####
+
 Route::model('post', 'Post');
 Route::model('type', 'Type');
 
-Route::get('/post/{post}/show', ['as'=>'post.show', 'uses'=>'PostController@showPost']);
-Route::get('/type/{type}/show', ['as'=>'type.show', 'uses'=>'TypeController@showType']);
+Route::get('/', function()
+{
+	return Redirect::to('posts');
+});
 
-Route::post('/type/{type}/post', ['as'=>'post.new', 'uses'=>'PostController@newPost']);
+Route::get('posts', function()	{
+	$posts = Post::all();
+	return View::make('posts.index')
+		->with('posts', $posts);
+});
 
-Route::get('/post/list',['as'=>'post.list', 'uses'=>'PostController@listPost']);
-Route::get('/post/new',['as'=>'post.new', 'uses'=>'PostController@newPost']);
-Route::get('/post/{post}/edit', ['as'=>'post.edit', 'uses'=>'PostController@editPost']);
-Route::get('/post/{post}/delete', ['as'=>'post.delete', 'uses'=>'PostController@deletePost']);
-Route::get('/type/list', ['as'=>'type.list', 'uses'=>'TypeController@listType']);
-Route::get('/type/new',['as'=>'type.new', 'uses'=>'TypeController@newType']);
-Route::get('/type/{type}/edit', ['as'=>'type.edit', 'uses'=>'TypeController@editType']);
-// Route::get('type/{type}/delete', ['as'=>'type.delete', 'uses'=>'TypeController@deleteType']);
 
-Route::post('/post/save', ['as'=>'post.save', 'uses'=>'PostController@savePost']);
-Route::post('/post/{post}/update', ['as'=>'post.update', 'uses'=>'PostController@updatePost']);
-Route::post('/type/save', ['as'=>'type.save', 'uses'=>'TypeController@saveType']);
-Route::post('/type/{type}/update', ['as'=>'type.update', 'uses'=>'TypeController@updateType']);
+Route::get('posts/create', function()	{
+	$post = new Post;
+	return View::make('posts.edit')
+		->with('post', $post)
+		->with('method', 'post');
+});
+	
+Route::post('posts', function()	{
+	$post = Post::create(Input::all());
+	if($cat->save())	{
+		return Redirect::to('posts/'.$post->id)
+			->with('message', 'Successfully created review!');
+	}	else	{
+		return Redirect::back()
+			->with('error', 'Could not create review');
+	}
+});
+	
+Route::get('posts/{post}/edit', function(Post $post)	{
+	return View::make('posts.edit')
+		->with('post', $post)
+		->with('method', 'put');
+});
+	
+Route::put('posts/{post}', function(Post $post)	{
+			$post->update(Input::all());
+			return Redirect::to('posts/'.$post->id)
+				->with('message', 'Successfully updated review!');
+});
+	
+Route::get('posts/{post}/delete', function(Post $post)	{
+	return View::make('posts.edit')
+		->with('post', $post)
+		->with('method', 'delete');
+});
+	
+Route::delete('posts/{post}', function(Post $post)	{
+	$post->delete();
+	return Redirect::to('posts')
+		->with('message', 'Successfully deleted review!');
+});
 
-Route::controller('/', 'BlogController')
+
+Route::get('posts/types/{genre}', function($genre)	{
+	$type = Type::whereName($genre)->with('posts')->first();
+	return View::make('posts.index')
+		->with('type', $type)
+		->with('posts', $type->posts);
+});
+
+
+Route::get('posts/{post}', function(Post $post)	{
+	return View::make('posts.single')
+		->with('post', $post);
+});
+
+View::composer('posts.edit', function($view)	{
+	$types = Type::all();
+	if(count($types) > 0)	{
+		$type_options = array_combine($types->lists('id'), $types->lists('genre'));
+	}	else	{
+		$type_options= array(null, 'Unspecified');
+	}
+	$view->with('type_options', $type_options);
+});
+
+#### moview application ####
