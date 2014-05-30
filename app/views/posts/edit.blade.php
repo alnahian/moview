@@ -4,36 +4,37 @@
 	<a href="{{URL::previous()}}">&larr; Cancel</a>
 	<h2>
 		@if($method == 'post')
-			Add a new cat
+			Add a new review
 		@elseif($method == 'delete')
-			Delete {{$cat->name}} ?
+			Delete {{$post->name}} ?
 		@else
-			Edit {{$cat->name}}
+			Edit {{$post->name}}
 		@endif
 	</h2>
 @stop
 
 @section('content')
-	{{Form::model($cat, array('method' => $method, 'url' => 'cats/'.$cat->id))}}
+	{{Form::model($post, array('method' => $method, 'url' => 'posts/'.$post->id))}}
 	
 	@unless($method == 'delete')
+
 		<div class="form-group">
-			{{Form::label('Name')}}
-			{{Form::text('name')}}
+			{{Form::label('Title')}}
+			{{Form::text('title')}}
 		</div>
 		<div class = "form-group">
-			{{Form::label('Date of birth')}}
-			{{Form::text('date_of_birth')}}
+			{{Form::label('Content')}}
+			{{Form::textarea('content')}}
 		</div>
 		<div class="form-group">
-			{{Form::label('Breed')}}
-			{{Form::select('breed_id', $breed_options)}}
+			{{Form::label('Select Genre')}}
+			{{Form::select('type_id', $type_options)}}
 		</div>
-		
+	
 		{{Form::submit("Save", array("class"=>"btn btn-default"))}}
 	@else
 		{{Form::submit("Delete", array("class"=>"btn btn-default"))}}
 	@endif
-	
+
 	{{Form::close()}}
 @stop

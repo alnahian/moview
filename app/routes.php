@@ -7,52 +7,25 @@ Route::model('type', 'Type');
 
 Route::get('/', 'BlogController@getIndex');
 
-Route::get('posts/create', function()	{
-	$post = new Post;
-	return View::make('posts.edit')
-		->with('post', $post)
-		->with('method', 'post');
-});
+Route::get('posts/create', 'PostController@newPost');
 	
-Route::post('posts', function()	{
-	$post = Post::create(Input::all());
-	if($cat->save())	{
-		return Redirect::to('posts/'.$post->id)
-			->with('message', 'Successfully created review!');
-	}	else	{
-		return Redirect::back()
-			->with('error', 'Could not create review');
-	}
-});
+Route::post('posts', 'PostController@savePost');
 	
-Route::get('posts/{post}/edit', function(Post $post)	{
-	return View::make('posts.edit')
-		->with('post', $post)
-		->with('method', 'put');
-});
+Route::get('posts/{post}/edit', 'PostController@editPost');
 	
-Route::put('posts/{post}', function(Post $post)	{
-			$post->update(Input::all());
-			return Redirect::to('posts/'.$post->id)
-				->with('message', 'Successfully updated review!');
-});
+Route::put('posts/{post}', 'PostController@updatePost');
 	
-Route::get('posts/{post}/delete', function(Post $post)	{
-	return View::make('posts.edit')
-		->with('post', $post)
-		->with('method', 'delete');
-});
+Route::get('posts/{post}/delete', 'PostController@deletePost');
 	
-Route::delete('posts/{post}', function(Post $post)	{
-	$post->delete();
-	return Redirect::to('posts')
-		->with('message', 'Successfully deleted review!');
-});
-
+Route::delete('posts/{post}', 'PostController@confirmDeletePost');
 
 Route::get('posts/types/{genre}', 'PostController@showPostGenre');
 
 Route::get('posts/{post}', 'PostController@showPost');
+
+Route::get('types', 'TypeController@listType');
+
+Route::get('types/{type}', 'TypeController@showType');
 
 View::composer('posts.edit', function($view)	{
 	$types = Type::all();
@@ -63,12 +36,5 @@ View::composer('posts.edit', function($view)	{
 	}
 	$view->with('type_options', $type_options);
 });
-
-
-Route::get('types', 'TypeController@listType');
-
-
-Route::get('types/{type}', 'TypeController@showType');
-
 
 #### moview application ####

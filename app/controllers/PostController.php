@@ -1,12 +1,12 @@
 <?php
 class PostController extends BaseController	{
 
-	
+	/*
 	public function lisPost()	{
-		$posts = Post::orderBy('id','desc')->paginate(10);
-		$this->layout->title = 'Review listings';
-		$this->layout->main = View::make('posts.list');
-	}
+		$posts = Post::all();
+	return View::make('posts.index')
+		->with('posts', $posts);
+	} */
 	
 	public function showPost(Post $post)	{
 	return View::make('posts.single')
@@ -14,18 +14,45 @@ class PostController extends BaseController	{
 	}
 	
 	public function newPost()	{
-		$this->layout->title = 'Add a review';
-		$this->layout->main = View::make('posts.new');
+		$post = new Post;
+		return View::make('posts.edit')
+			->with('post', $post)
+			->with('method', 'post');
+	}
+	
+	public function savePost()	{
+		$post = Post::create(Input::all());
+		if($post->save())	{
+			return Redirect::to('posts/'.$post->id)
+				->with('message', 'Successfully created review!');
+		}	else	{
+			return Redirect::back()
+				->with('error', 'Could not create review');
+		}
 	}
 	
 	public function editPost(Post $post)	{
-		$this->layout->title = 'Edit Review';
-		$this->layout->main = View::make('posts.edit');
+		return View::make('posts.edit')
+			->with('post', $post)
+			->with('method', 'put');
+	}
+	
+	public function updatePost(Post $post)	{
+		$post->update(Input::all());
+		return Redirect::to('posts/'.$post->id)
+			->with('message', 'Successfully updated review!');
 	}
 	
 	public function deletePost(Post $post)	{
+		return View::make('posts.edit')
+			->with('post', $post)
+			->with('method', 'delete');
+	}
+	
+	public function confirmDeletePost(Post $post)	{
 		$post->delete();
-		return Redirect::route('post.list')->with('success', 'Post is deleted!');
+		return Redirect::to('/')
+			->with('message', 'Successfully deleted review!');
 	}
 	
 	public function showPostGenre($genre)	{
