@@ -4,17 +4,8 @@
 Route::model('post', 'Post');
 Route::model('type', 'Type');
 
-Route::get('/', function()
-{
-	return Redirect::to('posts');
-});
 
-Route::get('posts', function()	{
-	$posts = Post::all();
-	return View::make('posts.index')
-		->with('posts', $posts);
-});
-
+Route::get('/', 'BlogController@getIndex');
 
 Route::get('posts/create', function()	{
 	$post = new Post;
@@ -58,19 +49,10 @@ Route::delete('posts/{post}', function(Post $post)	{
 		->with('message', 'Successfully deleted review!');
 });
 
-//////////////&&&&&&&&&&&&&&&&&&&&///////////
-Route::get('posts/types/{genre}', function($genre)	{
-	$type = Type::whereGenre($genre)->with('posts')->first();
-	return View::make('posts.index')
-		->with('type', $type)
-		->with('posts', $type->posts);
-});
 
+Route::get('posts/types/{genre}', 'PostController@showPostGenre');
 
-Route::get('posts/{post}', function(Post $post)	{
-	return View::make('posts.single')
-		->with('post', $post);
-});
+Route::get('posts/{post}', 'PostController@showPost');
 
 View::composer('posts.edit', function($view)	{
 	$types = Type::all();
@@ -83,17 +65,10 @@ View::composer('posts.edit', function($view)	{
 });
 
 
-Route::get('types', function()	{
-	$types = Type::all();
-	return View::make('types.index')
-		->with('types', $types);
-});
+Route::get('types', 'TypeController@listType');
 
 
-Route::get('types/{type}', function(Type $type)	{
-	return View::make('types.single')
-		->with('type', $type);
-});
+Route::get('types/{type}', 'TypeController@showType');
 
 
 #### moview application ####

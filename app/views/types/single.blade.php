@@ -17,7 +17,7 @@
 @section('content')
 	<p>Description: {{$type->description}}</p>
 	<p>
-		Reviews for this genre:
+		Reviews in this genre:
 		
 		@foreach($type->posts as $post)	
 			<div class="post">

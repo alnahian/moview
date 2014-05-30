@@ -1,5 +1,7 @@
 <?php
 class PostController extends BaseController	{
+
+	
 	public function lisPost()	{
 		$posts = Post::orderBy('id','desc')->paginate(10);
 		$this->layout->title = 'Review listings';
@@ -7,8 +9,8 @@ class PostController extends BaseController	{
 	}
 	
 	public function showPost(Post $post)	{
-		$this->layout->title = $post->title;
-		$this->layout->main = View::make('posts.single');
+	return View::make('posts.single')
+		->with('post', $post);
 	}
 	
 	public function newPost()	{
@@ -24,5 +26,12 @@ class PostController extends BaseController	{
 	public function deletePost(Post $post)	{
 		$post->delete();
 		return Redirect::route('post.list')->with('success', 'Post is deleted!');
-}
+	}
+	
+	public function showPostGenre($genre)	{
+		$type = Type::whereGenre($genre)->with('posts')->first();
+		return View::make('posts.index')
+		->with('type', $type)
+		->with('posts', $type->posts);
+	}
 }
