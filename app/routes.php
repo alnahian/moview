@@ -7,6 +7,8 @@ Route::model('type', 'Type');
 
 Route::get('/', 'BlogController@getIndex');
 
+Route::get('posts', 'PostController@listPost');
+
 Route::get('posts/create', 'PostController@newPost');
 	
 Route::post('posts', 'PostController@savePost');

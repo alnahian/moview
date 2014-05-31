@@ -1,12 +1,11 @@
 <?php
 class PostController extends BaseController	{
 
-	/*
-	public function lisPost()	{
+	public function listPost()	{
 		$posts = Post::all();
 	return View::make('posts.index')
 		->with('posts', $posts);
-	} */
+	}
 	
 	public function showPost(Post $post)	{
 	return View::make('posts.single')
