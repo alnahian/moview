@@ -36,5 +36,3 @@ View::composer('posts.edit', function($view)	{
 	}
 	$view->with('type_options', $type_options);
 });
-
-#### moview application ####
