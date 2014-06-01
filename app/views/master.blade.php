@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 	<script src="{{asset('js/jquery-2.1.1.min.js')}}"></script>
+	<script src="{{asset('js/blur.js')}}"></script>
+	<script src="{{asset('js/jquery.foggy.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/bootstrap.js')}}"></script>
 	<title>MovieW</title>
   </head>
@@ -40,7 +42,6 @@
         </div>
         <!-- /.container -->
     </nav>
-	
 	  @if(Session::has('message'))
         <div class="alert alert-success">
           {{Session::get('message')}}
