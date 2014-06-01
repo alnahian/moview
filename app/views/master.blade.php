@@ -25,14 +25,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" {{HTML::linkAction('BlogController@getIndex','MovieW')}}></a>
+                <a class="navbar-brand" href="{{url('/')}}">MOVIEW</a>
             </div>
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{url('posts')}}"><i class="fa fa-file-text fa-lg"> Post</i></a>
                     </li>
-                    <li><a href="{{url('types')}}"><i class="fa fa-camera-retro fa-lg"> Genres</i></a>
+                    <li><a href="{{url('types')}}"><i class="fa fa-camera-retro fa-lg"> Genre</i></a>
                     </li>
                     <li><a href="{{url('about')}}"><i class="fa fa-shield fa-lg"> About</i></a>
                     </li>
