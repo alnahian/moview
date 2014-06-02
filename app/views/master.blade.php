@@ -12,7 +12,7 @@
 	<script src="{{asset('js/blur.js')}}"></script>
 	<script src="{{asset('js/jquery.foggy.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/bootstrap.js')}}"></script>
-	<title>MovieW</title>
+	<title>Moview | A Personal Blog</title>
   </head>
   <body>
 	<div class="container">
@@ -28,7 +28,7 @@
                 <a class="navbar-brand" href="{{url('/')}}">MOVIEW</a>
             </div>
 
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{url('posts')}}"><i class="fa fa-file-text fa-lg"> Post</i></a>
                     </li>

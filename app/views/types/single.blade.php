@@ -15,7 +15,7 @@
 @stop
 
 @section('content')
-	<p>Description: {{$type->description}}</p>
+	<p><div class="text">Description: {{$type->description}}</div></p>
 	<p>
 		Reviews in this genre:
 		
